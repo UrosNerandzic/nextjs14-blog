@@ -1,0 +1,8 @@
+import React from "react";
+export const metadata = {
+  title: "Blog",
+  description: "Blog",
+};
+export default function layout({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
