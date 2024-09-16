@@ -6,27 +6,26 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SlugOnlyType } from "@/app/types/comon";
 
-export async function generateStaticParams({ params }: PropsBlog) {
-  const blogs = await getAllBlogPostsWithOnlySlug(params.blogSlug);
+// export async function generateStaticParams({ params }: PropsBlog) {
+//   const blogs = await getAllBlogPostsWithOnlySlug(params.blogSlug);
 
-  return blogs.map((blogs: SlugOnlyType) => ({
-    blogSlug: blogs.slug,
-  }));
-}
-export async function generateMetadata({ params }: props): Promise<Metadata> {
-  const data: fullBlog = await getBlogs(params.blogSlug);
+//   return blogs.map((blogs: SlugOnlyType) => ({
+//     blogSlug: blogs.slug,
+//   }));
+// }
+// export async function generateMetadata({ params }: props): Promise<Metadata> {
+//   const data: fullBlog = await getBlogs(params.blogSlug);
 
-  return {
-    title: data.title,
-    description: data.smallDescription,
-  };
-}
+//   return {
+//     title: data.title,
+//     description: data.smallDescription,
+//   };
+// }
 
 export default async function BlogArticle({ params }: props) {
-  console.log("Params:", params);
   const blogSlug = params.blogSlug || "";
   const data: fullBlog[] = await getBlogs(blogSlug);
-  console.log("PODACI", data);
+
   return (
     <>
       {data.map((singleBlog, index) => (
