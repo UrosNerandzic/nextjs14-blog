@@ -25,11 +25,10 @@ export default function Proba({ data }: ProbaProps) {
       {uniqueCategories.map((category, idx) => (
         <div
           onClick={() => {
-            // Proveri da li je trenutna ruta ista kao i category ruta
             if (pathname === `/blogs/${category}`) {
-              router.push("/blogs"); // Vrati na /blogs ako je drugi klik na isto dugme
+              router.push("/blogs");
             } else {
-              router.push(`/blogs/${category}`); // Inače idi na odabranu kategoriju
+              router.push(`/blogs/${category}`);
             }
           }}
           key={idx}
