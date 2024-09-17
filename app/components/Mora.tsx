@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface Post {
   category: {
@@ -17,34 +17,25 @@ export default function Proba({ data }: ProbaProps) {
   const uniqueCategories = Array.from(
     new Set(data.map((post) => post.category.currentSlug))
   );
-
-  // Stanje za trenutnu kategoriju
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  // Funkcija koja menja kategoriju
-  const handleCategoryClick = (category: string) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(category);
-    }
-  };
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5">
       {uniqueCategories.map((category, idx) => (
-        <Link
-          href={selectedCategory === category ? `/blogs` : `/blogs/${category}`}
+        <div
+          onClick={() => {
+            // Proveri da li je trenutna ruta ista kao i category ruta
+            if (pathname === `/blogs/${category}`) {
+              router.push("/blogs"); // Vrati na /blogs ako je drugi klik na isto dugme
+            } else {
+              router.push(`/blogs/${category}`); // Inače idi na odabranu kategoriju
+            }
+          }}
           key={idx}
-          passHref>
-          <Button
-            className={`w-full mt-7 ${
-              selectedCategory === category ? "bg-red-500" : ""
-            }`}
-            onClick={() => handleCategoryClick(category)}>
-            {category}
-          </Button>
-        </Link>
+          className="cursor-pointer">
+          <Button className="w-full mt-7">{category}</Button>
+        </div>
       ))}
     </div>
   );
