@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Navbar from "./components/Navbar";
 import { ThemeProvider } from "./components/theme-provider";
+import BlogNavigation from "./components/BlogNavigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           <Navbar />
+
           <main className="max-w-2xl mx-auto px-4 py-5">{children}</main>
         </ThemeProvider>
       </body>

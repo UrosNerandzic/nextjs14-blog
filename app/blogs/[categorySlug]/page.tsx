@@ -8,17 +8,19 @@ import {
   getCategory,
   getCategorybySlug,
 } from "@/app/queries/Category";
-import CompanyNavigation from "@/app/components/CompanyNavigation";
 import Link from "next/link";
 import Image from "next/image";
 import { PropsBlog, simpleBlogCard } from "@/app/types/Blogs";
 import { urlFor } from "@/app/lib/sanity";
+import BlogNavigation from "@/app/components/BlogNavigation";
 
 export async function generateStaticParams({ params }: PropsBlog) {
   const categories = await getAllCategoriesWithOnlySlug(params.categorySlug);
-  return categories.map((category: category) => ({
+  const result = categories.map((category: category) => ({
     categorySlug: category.slug,
   }));
+
+  return result;
 }
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
@@ -36,7 +38,7 @@ export default async function Category({ params }: props) {
   const blogs: simpleBlogCard[] = data[0]?.blogs || [];
   return (
     <>
-      <CompanyNavigation />
+      <BlogNavigation />
       <div className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5">
         {blogs.map((post, index) => (
           <Card key={index}>

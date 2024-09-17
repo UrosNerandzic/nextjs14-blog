@@ -3,7 +3,6 @@ import { client } from "../lib/sanity";
 import { SlugOnlyType } from "../types/comon";
 
 export async function getCategory(categorySlug: string) {
-  console.log("Fetching data for categorySlug:", categorySlug);
   const query = `*[_type == 'category' && categorySlug.current == '${categorySlug}']{
      title,
       "currentSlug": categorySlug.current,

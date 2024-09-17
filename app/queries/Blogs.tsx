@@ -41,14 +41,14 @@ export async function getNav() {
 export async function getAllBlogPostsWithOnlySlug(
   blogSlug: string
 ): Promise<SlugOnlyType[]> {
-  const query = `*[_type == "blog" ] {
-      "currentSlug": slug.current,
-    
+  const query = `*[_type == "blog" && category->categorySlug.current == '${blogSlug}'] {
+    "currentSlug": slug.current,
+    category->{
+      "categorySlug": categorySlug.current
+    }
   }`;
 
-  const categoriesWithSlugOnly = await client.fetch<SlugOnlyType[]>(query, {
-    blogSlug,
-  });
+  const getAllBlogPostsWithOnlySlug = await client.fetch<SlugOnlyType[]>(query);
 
-  return categoriesWithSlugOnly;
+  return getAllBlogPostsWithOnlySlug;
 }
