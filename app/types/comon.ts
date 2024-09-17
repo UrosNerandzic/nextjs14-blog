@@ -1,4 +1,9 @@
 export interface SlugOnlyType {
-  slug: string;
-  categorySlug: string;
+  currentSlug: {
+    _type: string;
+    current: string;
+  };
+  category: {
+    categorySlug: string;
+  };
 }

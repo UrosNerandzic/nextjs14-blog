@@ -6,11 +6,10 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SlugOnlyType } from "@/app/types/comon";
 
-export async function generateStaticParams({ params }: PropsBlog) {
-  const blogs = await getAllBlogPostsWithOnlySlug(params.blogSlug);
-
+export async function generateStaticParams() {
+  const blogs = await getAllBlogPostsWithOnlySlug();
   return blogs.map((blogs: SlugOnlyType) => ({
-    blogSlug: blogs.slug,
+    blogSlug: blogs.category.categorySlug,
   }));
 }
 export async function generateMetadata({ params }: props): Promise<Metadata> {

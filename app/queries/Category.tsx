@@ -13,23 +13,19 @@ export async function getCategory(categorySlug: string) {
         "currentSlug": slug.current,
      }
 }`;
-
   const params = { categorySlug };
   const data = await client.fetch(query, params);
   return data;
 }
 
-export async function getAllCategoriesWithOnlySlug(
-  categorySlug: string
-): Promise<SlugOnlyType[]> {
-  const query = `*[_type == "category" && categorySlug == ${categorySlug}] {
+export async function getAllCategoriesWithOnlySlug() {
+  const query = `*[_type == "category"] {
       "currentSlug": categorySlug,
   }`;
-
   const categoriesWithSlugOnly = await client.fetch<SlugOnlyType[]>(query);
-
   return categoriesWithSlugOnly;
 }
+
 export async function getCategorybySlug(
   categorySlug: string
 ): Promise<categoryData[]> {

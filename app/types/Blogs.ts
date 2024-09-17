@@ -7,6 +7,7 @@ export interface simpleBlogCard {
     currentSlug: string;
   };
 }
+
 export interface fullBlog {
   currentSlug: string;
   title: string;
@@ -20,6 +21,7 @@ export type props = {
     blogSlug: string;
   };
 };
+
 export interface PropsBlog {
   params: {
     blogSlug: string;

@@ -3,11 +3,13 @@ export interface categoryLink {
     currentSlug: string;
   };
 }
+
 export interface categoryData {
   title: string;
   categorySlug: string;
   blogs: blog[];
 }
+
 export type blog = {
   title: string;
   smallDescription: string;
@@ -24,6 +26,18 @@ export type props = {
     categorySlug: string;
   };
 };
+
 export interface category {
-  slug: string;
+  currentSlug: {
+    _type: string;
+    current: string;
+  };
+}
+
+export interface NavigationType {
+  data: {
+    category: {
+      currentSlug: string;
+    };
+  }[];
 }

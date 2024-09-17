@@ -2,18 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { NavigationType } from "../types/Category";
 
-interface Post {
-  category: {
-    currentSlug: string;
-  };
-}
-
-interface ProbaProps {
-  data: Post[];
-}
-
-export default function Proba({ data }: ProbaProps) {
+export default function Navigation({ data }: NavigationType) {
   const uniqueCategories = Array.from(
     new Set(data.map((post) => post.category.currentSlug))
   );

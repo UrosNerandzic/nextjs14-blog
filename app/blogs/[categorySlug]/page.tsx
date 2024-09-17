@@ -1,32 +1,26 @@
-import { categoryData, blog, props, category } from "@/app/types/Category";
-
+import { categoryData, props, category } from "@/app/types/Category";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Metadata } from "next";
 import {
   getAllCategoriesWithOnlySlug,
   getCategory,
-  getCategorybySlug,
 } from "@/app/queries/Category";
 import Link from "next/link";
 import Image from "next/image";
-import { PropsBlog, simpleBlogCard } from "@/app/types/Blogs";
+import { simpleBlogCard } from "@/app/types/Blogs";
 import { urlFor } from "@/app/lib/sanity";
 import BlogNavigation from "@/app/components/BlogNavigation";
 
-export async function generateStaticParams({ params }: PropsBlog) {
-  const categories = await getAllCategoriesWithOnlySlug(params.categorySlug);
+export async function generateStaticParams() {
+  const categories = await getAllCategoriesWithOnlySlug();
   const result = categories.map((category: category) => ({
-    categorySlug: category.slug,
+    categorySlug: category.currentSlug.current,
   }));
-
   return result;
 }
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
-  const categories: categoryData[] = await getCategorybySlug(
-    params.categorySlug
-  );
   return {
     title: params.categorySlug,
   };
